@@ -54,7 +54,7 @@ load_name = './outputs/rpf_nuri/best.pth'
 DATA_SPLIT = 'val'
 CONTENT_PATH = 'data/datasets/pointnav/mp3d/v1/{}/'.format(DATA_SPLIT)
 valid_list = [os.path.join(args.data_dir, 'val', x) for x in os.listdir(os.path.join(args.data_dir, 'val'))]
-VIDEO_DIR = os.path.join("/home/blackfoot/datasets/habitat/preprocessed_habitat_data/%s_test_videos" % DATA_SPLIT)
+VIDEO_DIR = os.path.join("./data/preprocessed_habitat_data/%s_test_videos" % DATA_SPLIT)
 if not os.path.exists(VIDEO_DIR):
     os.makedirs(VIDEO_DIR)
 rpf = build_net('test', args)
@@ -70,32 +70,6 @@ if args.cuda:
     cudnn.benchmark = True
 
 rpf = rpf.eval()
-
-
-def draw_top_down_map(info, heading, output_size):
-    top_down_map = maps.colorize_topdown_map(
-        info["top_down_map"]["map"], info["top_down_map"]["fog_of_war_mask"]
-    )
-    original_map_size = top_down_map.shape[:2]
-    map_scale = np.array(
-        (1, original_map_size[1] * 1.0 / original_map_size[0])
-    )
-    new_map_size = np.round(output_size * map_scale).astype(np.int32)
-    # OpenCV expects w, h but map size is in h, w
-    top_down_map = cv2.resize(top_down_map, (new_map_size[1], new_map_size[0]))
-
-    map_agent_pos = info["top_down_map"]["agent_map_coord"]
-    map_agent_pos = np.round(
-        map_agent_pos * new_map_size / original_map_size
-    ).astype(np.int32)
-    top_down_map = maps.draw_agent(
-        top_down_map,
-        map_agent_pos,
-        heading - np.pi / 2,
-        agent_radius_px=top_down_map.shape[0] / 40,
-    )
-    return top_down_map
-
 
 def make_settings():
     settings = dr.default_sim_settings.copy()
@@ -117,12 +91,14 @@ def make_settings():
     return settings
 
 
+if RENDER:
+    dirname = os.path.join(VIDEO_DIR)
+    if os.path.exists(dirname):
+        shutil.rmtree(dirname)
+    render_dirname = dirname
+
+
 def main(settings):
-    if RENDER:
-        dirname = os.path.join(VIDEO_DIR)
-        if os.path.exists(dirname):
-            shutil.rmtree(dirname)
-        render_dirname = dirname
     statistic = {'success': [], 'lengths': []}
     valid_dataset = HabitatDemoDataset(args, valid_list, transform=BasicAugmentation(size=args.img_size))
     batch_iterator = iter(data.DataLoader(dataset=valid_dataset, batch_size=1))
@@ -142,7 +118,6 @@ def main(settings):
         demo_runner.init_episode(start_position, start_rotation, end_position, end_rotation)
         demo_runner.init_common()
         record, result = rpf(demo_im, demo_action_onehot, start_position=start_position, start_rotation=start_rotation, sim=demo_runner)
-        ## 'eta', 'h_ts', 'attention_t', 'in_rgb_feats_t', 'mu_t', 'out_pred_t' ###
         statistic['success'].append(result)
         statistic['lengths'].append(len(record['follower_im']))
         out_gif = []
@@ -173,12 +148,12 @@ def main(settings):
 
             images_to_video(out_gif, render_dirname, "%s_%02d" % (cur_house[0], episode))
         print('INTERMEDIATE SUCCESS RATE:', np.mean(statistic['success']))
-        print('INTERMEDIATE SPL : ', np.mean(np.multiply(statistic['success'], args.max_follow_length / np.maximum(statistic['lengths'], args.max_follow_length))))
+        print('INTERMEDIATE SPL : ', np.mean(np.multiply(statistic['success'], args.demo_length / np.maximum(statistic['lengths'], args.demo_length))))
         demo_runner._sim.close()
     np.save('./outputs/rpf_nuri/stats', statistic)
 
     print('SUCCESS RATE:', np.mean(statistic['success']))
-    print('SPL : ', np.mean(np.multiply(statistic['success'], args.max_follow_length / np.maximum(statistic['lengths'], args.max_follow_length ))))
+    print('SPL : ', np.mean(np.multiply(statistic['success'], args.demo_length / np.maximum(statistic['lengths'], args.demo_length))))
 
 
 if __name__ == "__main__":
