@@ -7,9 +7,9 @@ import torch.optim as optim
 import torch.utils.data as data
 import torch.backends.cudnn as cudnn
 from tensorboardX import SummaryWriter
-from load_data import HabitatDataset
+from utils.load_data import HabitatDataset
 from torch.autograd import Variable
-from model import build_net
+from models.model_rpf import build_net
 from utils.augmentations import RPFAugmentation
 
 parser = argparse.ArgumentParser(description='PyTorch RPF Training')
