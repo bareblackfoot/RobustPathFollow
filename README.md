@@ -9,7 +9,7 @@ Trained with over 40000 episodes and tested with over 1000 episodes of habitat m
 ### Prerequisites
   - A basic Pytorch installation. I used pytorch 1.3.1
   - tensorboardX installation.
-  - Habitat simulator ([Habitat sim](https://github.com/facebookresearch/habitat-sim)).
+  - (For training) Habitat simulator ([Habitat sim](https://github.com/facebookresearch/habitat-sim)).
   
  
 ### Installation
@@ -19,14 +19,26 @@ Trained with over 40000 episodes and tested with over 1000 episodes of habitat m
   ```
 
 ### Setup data
-1. Download habitat-sim pathfollow dataset
-    - Google drive [here](https://drive.google.com/drive/folders/1-XwH9nZkKDynqN227LvxjUVPhjv6BPzu?usp=sharing) 
-
+1. Download habitat-sim pathfollow test dataset
+    - Google drive [here](https://drive.google.com/drive/folders/1-a3dU6oqNX4Hdu5HXTbUHGQQ1A0E51CM?usp=sharing) 
+    - Email me to get training dataset
+    
 2. Create a folder and a soft link to use the dataset
   ```Shell
   mkdir data
   cd data
   ln -s path/to/downloaded/dataset/pathfollow .
+  cd ..
+  ```
+
+3. Download [Habitat sim](https://github.com/facebookresearch/habitat-sim) scene dataset
+    - The full Matterport3D (MP3D) dataset for use with Habitat can be downloaded using the official Matterport3D download script as follows: python download_mp.py --task habitat -o path/to/download/. You only need the habitat zip archive and not the entire Matterport3D dataset. Note that this download script requires python 2.7 to run.
+
+4. Create a folder and a soft link to use the scene dataset
+  ```Shell
+  cd data
+  ln -s path/to/downloaded/dataset/scene_dataset .
+  cd ..
   ```
 
 ### Test with pre-trained models
