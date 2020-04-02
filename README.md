@@ -1,10 +1,17 @@
 # RobustPathFollow
-Pytorch Implementation of "Visual Memory for Robust Path Following", NIPS18
-* Success rate: 83.3%
-* SPL: 75.2%
+Pytorch Implementation of "[Visual Memory for Robust Path Following](https://papers.nips.cc/paper/7357-visual-memory-for-robust-path-following.pdf)", Ashish Kumar, Saurabh Gupta, David Fouhey, Sergey Levine, and Jitendra Malik
+in NIPS18
 
-Trained with over 40000 episodes and tested with over 1000 episodes of habitat matterport dataset.
-
+###Results:
+- Mine:
+    * Success rate: 83.3%
+    * SPL: 75.2%
+- In paper:
+    * Success rate: 86.6%
+    * SPL: 72.6%
+    
+We think the difference on performance came from the difference of the dataset. We collected the dataset with our own.
+The RPF(Robust Path Following) model is trained with over 40000 episodes and tested with over 1000 episodes of habitat-sim pathfollow dataset.
 
 ### Prerequisites
   - A basic Pytorch installation. I used pytorch 1.3.1
