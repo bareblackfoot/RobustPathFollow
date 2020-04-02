@@ -9,7 +9,7 @@ Trained with over 40000 episodes and tested with over 1000 episodes of habitat m
 ### Prerequisites
   - A basic Pytorch installation. I used pytorch 1.3.1
   - tensorboardX installation.
-  - (For training) Habitat simulator ([Habitat sim](https://github.com/facebookresearch/habitat-sim)).
+  - (For test) Habitat simulator ([Habitat sim](https://github.com/facebookresearch/habitat-sim)).
   
  
 ### Installation
