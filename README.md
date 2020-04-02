@@ -18,6 +18,7 @@ Trained with over 40000 episodes and tested with over 1000 episodes of habitat m
   git clone https://github.com/bareblackfoot/RobustPathFollow.git
   ```
 
+
 ### Setup data
 1. Download habitat-sim pathfollow test dataset
     - Google drive [here](https://drive.google.com/drive/folders/1-a3dU6oqNX4Hdu5HXTbUHGQQ1A0E51CM?usp=sharing) 
@@ -41,6 +42,26 @@ Trained with over 40000 episodes and tested with over 1000 episodes of habitat m
   cd ..
   ```
 
+5. Make sure your directory structure looks like:
+  * RobustPathFollow
+    * data
+        * pathfollow
+            * train
+                * demo
+                * follower
+            * test
+                * demo
+                * follower
+            * valid
+                * demo
+                * follower
+        * scene_datasets
+            * mp3d
+    * outputs
+        * rpf_nuri
+            * best.pth
+   
+   
 ### Test with pre-trained models
 1. Download pre-trained model
   - Google drive [here](https://drive.google.com/file/d/1Qd9FOAYf82kyUBezeg5aKA4e5Hp3jJB8/view?usp=sharing).
@@ -56,7 +77,7 @@ Trained with over 40000 episodes and tested with over 1000 episodes of habitat m
   ```
 
 ### Train your own model
-1. Download pre-trained models and weights. The current code support VGG16 and Resnet V1 models. Pre-trained models are provided by slim, you can get the pre-trained models [here](https://github.com/tensorflow/models/tree/master/research/slim#pre-trained-models) and set them in the ``data/imagenet_weights`` folder. For example for VGG16 model, you can set up like:
+1. You can train your model with the habitat-sim training dataset (Email me to get it!):
   ```Shell
   GPU_ID=0
   CUDA_VISIBLE_DEVICES={GPU_ID} python train.py
