@@ -1,9 +1,8 @@
 # RobustPathFollow
-Pytorch Implementation of "[Visual Memory for Robust Path Following](https://papers.nips.cc/paper/7357-visual-memory-for-robust-path-following.pdf)", Ashish Kumar, Saurabh Gupta, David Fouhey, Sergey Levine, and Jitendra Malik
-in NIPS18
+Pytorch Implementation of "[Visual Memory for Robust Path Following](https://papers.nips.cc/paper/7357-visual-memory-for-robust-path-following.pdf)" by Nuri Kim, Obin Kwon, and Hwiyeon Yoo.
 
-###Results:
-- Mine:
+### Results
+- Our implementation:
     * Success rate: 83.3%
     * SPL: 75.2%
 - In paper:
