@@ -60,7 +60,7 @@ def make_settings():
     settings["height"] = args.img_size
     settings["scene"] = ''
     settings["save_png"] = False  # args.save_png
-    settings["sensor_height"] = 1.5
+    settings["sensor_height"] = 1.25
     settings["color_sensor"] = True
     settings["semantic_sensor"] = False
     settings["depth_sensor"] = False
