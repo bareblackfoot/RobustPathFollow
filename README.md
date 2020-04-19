@@ -3,17 +3,17 @@ Pytorch Implementation of "[Visual Memory for Robust Path Following](https://pap
 
 ### Results
 - Our implementation:
-    * Success rate: 83.3%
-    * SPL: 75.2%
+    * Success rate: 86.0%
+    * SPL: 77.3%
 - In paper:
     * Success rate: 86.6%
     * SPL: 72.6%
     
 We think the difference on performance came from the difference of the dataset. We collected the dataset with our own.
-The RPF(Robust Path Following) model is trained with over 40000 episodes and tested with over 1000 episodes of habitat-sim pathfollow dataset.
+The RPF (Robust Path Following) model is trained with over 40000 episodes and tested with over 1000 episodes of habitat-sim pathfollow dataset.
 
 ### Prerequisites
-  - A basic Pytorch installation. I used pytorch 1.3.1
+  - A basic Pytorch installation. I used pytorch 1.3.1  
   - tensorboardX installation.
   - (For test) Habitat simulator ([Habitat sim](https://github.com/facebookresearch/habitat-sim)).
   
